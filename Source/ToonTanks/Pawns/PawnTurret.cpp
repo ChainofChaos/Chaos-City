@@ -2,7 +2,6 @@
 
 
 #include "PawnTurret.h"
-#include "AIController.h" 
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
 
@@ -27,7 +26,7 @@ void APawnTurret::Tick(float DeltaTime)
 	{
 		return;
 	}
-	EnemyMoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
+	// EnemyMoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
 	if (GetPlayerDistance() > FireRange) {
 		return;
 	}
@@ -53,9 +52,9 @@ float APawnTurret::GetPlayerDistance()
 	return FVector::Dist(PlayerPawn->GetActorLocation(), GetActorLocation());
 }
 
-void APawnTurret::EnemyMoveToTarget(FVector TargetLocation, float Speed)
-{
-	AAIController* AIController = Cast<AAIController>(GetController());
-	if(!AIController){return;}
-	AIController->MoveToLocation(TargetLocation, 5.f, false);
-}
+// void APawnTurret::EnemyMoveToTarget(FVector TargetLocation, float Speed)
+// {
+// 	AAIController* AIController = Cast<AAIController>(GetController());
+// 	if(!AIController){return;}
+// 	AIController->MoveToLocation(TargetLocation, 5.f, false);
+// }

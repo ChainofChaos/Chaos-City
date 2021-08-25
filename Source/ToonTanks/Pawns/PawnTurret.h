@@ -39,6 +39,6 @@ private:
 	FVector MoveDirection;
 
 	void CheckFireCondition();
-	void EnemyMoveToTarget(FVector TargetLocation, float Speed);
+	// void EnemyMoveToTarget(FVector TargetLocation, float Speed);
 	float GetPlayerDistance();
 };
