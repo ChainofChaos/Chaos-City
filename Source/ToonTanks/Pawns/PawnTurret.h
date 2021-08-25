@@ -7,6 +7,7 @@
 #include "PawnTurret.generated.h"
 
 class APawnTank;
+class AAIController;
 
 UCLASS()
 class TOONTANKS_API APawnTurret : public APawnBase
@@ -33,6 +34,7 @@ private:
 	float MovementSpeed = 100.f;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
+	AAIController* Controller;
 	FVector MoveDirection;
 
 	void CheckFireCondition();
