@@ -2,7 +2,7 @@
 
 
 #include "PawnTurret.h"
-#include "AIController.h" 
+#include "ToonTanks/PlayerControllers/EnemyAIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
 
@@ -55,7 +55,7 @@ float APawnTurret::GetPlayerDistance()
 
 void APawnTurret::EnemyMoveToTarget(FVector TargetLocation, float Speed)
 {
-	AAIController* AIController = Cast<AAIController>(GetController());
+	AEnemyAIController* AIController = Cast<AEnemyAIController>(GetController());
 	if(!AIController){return;}
 	AIController->MoveToLocation(TargetLocation, 5.f, false);
 }
