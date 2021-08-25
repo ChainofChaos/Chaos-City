@@ -11,7 +11,6 @@ void APawnTurret::BeginPlay()
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &APawnTurret::CheckFireCondition, FireRate, true);
 	PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
-	Controller = Cast<AAIController>(GetController());
 }
 
 void APawnTurret::HandleDestruction()
@@ -28,7 +27,7 @@ void APawnTurret::Tick(float DeltaTime)
 	{
 		return;
 	}
-	MoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
+	EnemyMoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
 	if (GetPlayerDistance() > FireRange) {
 		return;
 	}
@@ -54,8 +53,9 @@ float APawnTurret::GetPlayerDistance()
 	return FVector::Dist(PlayerPawn->GetActorLocation(), GetActorLocation());
 }
 
-void APawnTurret::MoveToTarget(FVector TargetLocation, float Speed)
+void APawnTurret::EnemyMoveToTarget(FVector TargetLocation, float Speed)
 {
-	if(!Controller){return;}
-	// Controller->MoveToLocation(TargetLocation, 5.f, false);
+	AAIController* AIController = Cast<AAIController>(GetController());
+	if(!AIController){return;}
+	AIController->MoveToLocation(TargetLocation, 5.f, false);
 }

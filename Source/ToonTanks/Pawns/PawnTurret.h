@@ -7,7 +7,7 @@
 #include "PawnTurret.generated.h"
 
 class APawnTank;
-class AAIController;
+//class AAIController;
 
 UCLASS()
 class TOONTANKS_API APawnTurret : public APawnBase
@@ -34,10 +34,11 @@ private:
 	float MovementSpeed = 100.f;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
-	AAIController* Controller;
+	
+	//AAIController* AIController;
 	FVector MoveDirection;
 
 	void CheckFireCondition();
-	void MoveToTarget(FVector TargetLocation, float Speed);
+	void EnemyMoveToTarget(FVector TargetLocation, float Speed);
 	float GetPlayerDistance();
 };
