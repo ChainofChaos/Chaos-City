@@ -22,7 +22,12 @@ void APawnTurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!PlayerPawn || GetPlayerDistance() > FireRange) {
+	if(!PlayerPawn)
+	{
+		return;
+	}
+	MoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
+	if (GetPlayerDistance() > FireRange) {
 		return;
 	}
 	RotateTurret(PlayerPawn->GetActorLocation());
@@ -45,4 +50,10 @@ float APawnTurret::GetPlayerDistance()
 	}
 
 	return FVector::Dist(PlayerPawn->GetActorLocation(), GetActorLocation());
+}
+
+void MoveToTarget(FVector TargetLocation, float Speed)
+{
+	MoveDirection = FVector(1 * Speed * GetWorld()->DeltaTimeSeconds, 0, 0);
+	AddActorLocalOffset(MoveDirection, true);
 }

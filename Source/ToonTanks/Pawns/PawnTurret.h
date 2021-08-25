@@ -29,9 +29,13 @@ private:
 	float FireRate = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float FireRange = 500.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float MovementSpeed = 100.f;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
+	FVector MoveDirection;
 
 	void CheckFireCondition();
+	void MoveToTarget(FVector TargetLocation, float Speed);
 	float GetPlayerDistance();
 };
