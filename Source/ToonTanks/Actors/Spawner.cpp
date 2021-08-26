@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ASpawner::ASpawner()
@@ -33,14 +34,25 @@ void ASpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	SetSpawnerTimer();
+	if(bSpawned == true){return;}
 	SpawnEnemy();
 }
 
 void ASpawner::SpawnEnemy()
 {
 	if(!TurretClass){return;}
-	APawnTurret* TempTurret = GetWorld()->SpawnActor<APawnTurret>(TurretClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
-	//TempTurret->SetLifeSpan(20.f);
+	GetWorld()->SpawnActor<APawnTurret>(TurretClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
+	LastSpawnTime = GetWorld()->GetTimeSeconds();
+	bSpawned = true;
+}
+
+void ASpawner::SetSpawnerTimer()
+{
+	if(LastSpawnTime + SpawningDelay <= GetWorld()->GetTimeSeconds() && LastSpawnTime != 0)
+	{
+		bSpawned = false;
+	}
 }
 
 

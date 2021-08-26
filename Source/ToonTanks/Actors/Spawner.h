@@ -32,9 +32,16 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* SpawnPoint;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<APawnTurret> TurretClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	float SpawningDelay = 5.f;
+
+	float LastSpawnTime = 0.f;
+	bool bSpawned = false;
 	
 	void SpawnEnemy();
+	void SetSpawnerTimer();
 
 };
