@@ -27,6 +27,7 @@ public:
 
 	bool GetIsPlayerAlive();
 	float GetRotationValue();
+	float GetPlayerHP();
 	
 protected:
 	// Called when the game starts or when spawned

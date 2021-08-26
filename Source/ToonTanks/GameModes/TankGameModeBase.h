@@ -15,16 +15,27 @@ class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 	
 public:
-
 	void ActorDied(AActor* DeadActor);
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Game Loop")
-	int32 StartDelay = 3;
+	int32 StartDelay = 4;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	int32 IncrementScoreAmount = 10;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	int32 Score = 0;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	int32 Health = 0;
+	
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameStart();
+	UFUNCTION(BlueprintImplementableEvent)
+	void UILoad();
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool bPlayerWon);
 

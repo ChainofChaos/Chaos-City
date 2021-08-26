@@ -4,6 +4,7 @@
 #include "PawnTank.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "ToonTanks/Components/HealthComponent.h"
 
 APawnTank::APawnTank()
 {
@@ -82,4 +83,9 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 float APawnTank::GetRotationValue()
 {
 	return RotVal;
+}
+
+float APawnTank::GetPlayerHP()
+{
+	return HealthComponent->GetHealth();
 }

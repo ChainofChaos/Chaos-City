@@ -11,7 +11,18 @@
 void ATankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+	PrimaryActorTick.bCanEverTick = true;
 	HandleGameStart();
+	
+}
+
+void ATankGameModeBase::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	//tidak masuk sini, besok cek
+	if(!PlayerPawn){return;}
+	Health = PlayerPawn->GetPlayerHP();
+	UE_LOG(LogTemp, Warning, TEXT("%f"),Health);
 }
 
 void ATankGameModeBase::ActorDied(AActor* DeadActor)
@@ -23,6 +34,7 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 	}
 	else if (APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor)) {
 		DestroyedTurret->HandleDestruction();
+		Score+=IncrementScoreAmount;
 		if (--TargetTurret == 0) {
 			HandleGameOver(true);
 		}
@@ -38,6 +50,7 @@ void ATankGameModeBase::HandleGameStart()
 	PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 	GameStart();
+	UILoad();
 	PlayerControllerRef->SetPlayerEnabledState(false);
 	FTimerHandle PlayerEnabledHandle;
 	FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState, true);
