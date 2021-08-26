@@ -11,6 +11,7 @@ void APawnTurret::BeginPlay()
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &APawnTurret::CheckFireCondition, FireRate, true);
 	PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	EnemyMoveToTarget();
 }
 
 void APawnTurret::HandleDestruction()
@@ -27,7 +28,7 @@ void APawnTurret::Tick(float DeltaTime)
 	{
 		return;
 	}
-	EnemyMoveToTarget(PlayerPawn->GetActorLocation(), MovementSpeed);
+	EnemyMoveToTarget();
 	if (GetPlayerDistance() > FireRange) {
 		return;
 	}
@@ -53,9 +54,15 @@ float APawnTurret::GetPlayerDistance()
 	return FVector::Dist(PlayerPawn->GetActorLocation(), GetActorLocation());
 }
 
-void APawnTurret::EnemyMoveToTarget(FVector TargetLocation, float Speed)
+void APawnTurret::EnemyMoveToTarget()
 {
+<<<<<<< Updated upstream
 	AAIController* AIController = Cast<AAIController>(GetController());
+=======
+	AEnemyAIController* AIController = Cast<AEnemyAIController>(GetController());
+	//sepertinya tidak masuk sini juga
+>>>>>>> Stashed changes
 	if(!AIController){return;}
-	AIController->MoveToLocation(TargetLocation, 5.f, false);
+	AIController->MoveToActor(PlayerPawn, 5.f, false, true);
+	//AIController->MoveToLocation(TargetLocation, 5.f, false);
 }

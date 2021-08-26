@@ -20,6 +20,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void HandleDestruction() override;
+	void EnemyMoveToTarget();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,6 +40,5 @@ private:
 	FVector MoveDirection;
 
 	void CheckFireCondition();
-	void EnemyMoveToTarget(FVector TargetLocation, float Speed);
 	float GetPlayerDistance();
 };
