@@ -2,7 +2,6 @@
 
 
 #include "PawnTurret.h"
-#include "AIController.h" 
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
 
@@ -56,13 +55,6 @@ float APawnTurret::GetPlayerDistance()
 
 void APawnTurret::EnemyMoveToTarget()
 {
-<<<<<<< Updated upstream
-	AAIController* AIController = Cast<AAIController>(GetController());
-=======
-	AEnemyAIController* AIController = Cast<AEnemyAIController>(GetController());
 	//sepertinya tidak masuk sini juga
->>>>>>> Stashed changes
-	if(!AIController){return;}
-	AIController->MoveToActor(PlayerPawn, 5.f, false, true);
-	//AIController->MoveToLocation(TargetLocation, 5.f, false);
+	UE_LOG(LogTemp, Warning, TEXT("Move"));
 }
