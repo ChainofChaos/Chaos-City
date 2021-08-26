@@ -35,7 +35,6 @@ bool APawnTank::GetIsPlayerAlive()
 
 void APawnTank::CalculateMoveInput(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%f"), Value);
 	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
 }
 

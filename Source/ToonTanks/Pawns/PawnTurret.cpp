@@ -57,6 +57,7 @@ float APawnTurret::GetPlayerDistance()
 void APawnTurret::EnemyMoveToTarget()
 {
 	if(!PlayerPawn){return;}
+
 	FVector EnemyMovementDirection = FVector(-1 * 200.f * GetWorld()->DeltaTimeSeconds, 0, 0);
 	FRotator EnemyRotationDirection = FRotator(0, PlayerPawn->GetRotationValue() * 100.f * GetWorld()->DeltaTimeSeconds, 0);
 	
