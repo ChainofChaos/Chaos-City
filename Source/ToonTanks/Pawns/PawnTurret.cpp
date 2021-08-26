@@ -57,4 +57,7 @@ void APawnTurret::EnemyMoveToTarget()
 {
 	//sepertinya tidak masuk sini juga
 	UE_LOG(LogTemp, Warning, TEXT("Move"));
+	//if(!PlayerPawn){return;}
+	//FVector MoveDirection = FVector(PlayerPawn->GetActorLocation().X, 0, 0);
+	//AddActorLocalOffset(MoveDirection, true); 
 }
