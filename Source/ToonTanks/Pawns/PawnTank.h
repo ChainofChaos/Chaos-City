@@ -26,6 +26,8 @@ public:
 	virtual void HandleDestruction() override;
 
 	bool GetIsPlayerAlive();
+	float GetRotationValue();
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -45,7 +47,8 @@ private:
 	float MoveSpeed = 100.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta = (AllowPrivateAccess = "True"))
 	float RotateSpeed = 100.f;
-
+	float RotVal = 0;
+	
 	bool bIsPlayerAlive = true;
 
 	void CalculateMoveInput(float Value);

@@ -27,6 +27,7 @@ void APawnTurret::Tick(float DeltaTime)
 	{
 		return;
 	}
+	RotateMesh(PlayerPawn->GetActorLocation());
 	EnemyMoveToTarget();
 	if (GetPlayerDistance() > FireRange) {
 		return;
@@ -55,9 +56,11 @@ float APawnTurret::GetPlayerDistance()
 
 void APawnTurret::EnemyMoveToTarget()
 {
-	//sepertinya tidak masuk sini juga
-	UE_LOG(LogTemp, Warning, TEXT("Move"));
-	//if(!PlayerPawn){return;}
-	//FVector MoveDirection = FVector(PlayerPawn->GetActorLocation().X, 0, 0);
-	//AddActorLocalOffset(MoveDirection, true); 
+	if(!PlayerPawn){return;}
+	FVector EnemyMovementDirection = FVector(-1 * 200.f * GetWorld()->DeltaTimeSeconds, 0, 0);
+	FRotator EnemyRotationDirection = FRotator(0, PlayerPawn->GetRotationValue() * 100.f * GetWorld()->DeltaTimeSeconds, 0);
+	
+	AddActorLocalOffset(EnemyMovementDirection, true);
+	AddActorLocalRotation(FQuat(EnemyRotationDirection) , true);
 }
+

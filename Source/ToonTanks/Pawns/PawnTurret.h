@@ -36,9 +36,6 @@ private:
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
 	
-	//AAIController* AIController;
-	FVector MoveDirection;
-
 	void CheckFireCondition();
 	float GetPlayerDistance();
 };

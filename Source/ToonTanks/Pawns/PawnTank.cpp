@@ -35,11 +35,13 @@ bool APawnTank::GetIsPlayerAlive()
 
 void APawnTank::CalculateMoveInput(float Value)
 {
+	UE_LOG(LogTemp, Warning, TEXT("%f"), Value);
 	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
 }
 
 void APawnTank::CalculateRotateInput(float Value)
 {
+	RotVal = Value;
 	float RotateAmount = Value * RotateSpeed * GetWorld()->DeltaTimeSeconds;
 	FRotator Rotation = FRotator(0, RotateAmount, 0);
 	RotationDirection = FQuat(Rotation);
@@ -76,4 +78,9 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMoveInput);
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotateInput);
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnTank::Fire);
+}
+
+float APawnTank::GetRotationValue()
+{
+	return RotVal;
 }

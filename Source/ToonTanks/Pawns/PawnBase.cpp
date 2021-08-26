@@ -32,6 +32,14 @@ void APawnBase::RotateTurret(FVector LookAtTarget)
 	TurretMesh->SetWorldRotation(TurretRotation);
 }
 
+void APawnBase::RotateMesh(FVector LookAtTarget)
+{
+	FVector LookAtTargetCleaned = FVector(LookAtTarget.X, LookAtTarget.Y, BaseMesh->GetComponentLocation().Z);
+	FVector TargetLocation = BaseMesh->GetComponentLocation();
+	FRotator MeshRotation = FVector(LookAtTargetCleaned - TargetLocation).Rotation();
+	BaseMesh->SetWorldRotation(MeshRotation);
+}
+
 void APawnBase::Fire()
 {
 	if (ProjectileClass) {
