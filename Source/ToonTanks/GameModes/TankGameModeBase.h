@@ -20,6 +20,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	bool GetIsPlaying();
+	int32 GetScore();
 
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Game Loop")

@@ -68,3 +68,9 @@ bool ATankGameModeBase::GetIsPlaying()
 	return bPlay;
 }
 
+int32 ATankGameModeBase::GetScore()
+{
+	return Score;
+}
+
+

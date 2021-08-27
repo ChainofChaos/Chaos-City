@@ -37,14 +37,19 @@ private:
 	TSubclassOf<APawnTurret> TurretClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
-	float SpawningDelay = 5.f;
+	float SpawningDelay = 5.5f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	int32 SpawnerMultiplicityAtScore = 35;
+	
 	ATankGameModeBase* GameModeBase;
 	
 	float LastSpawnTime = 0.f;
 	bool bSpawned = false;
+	bool bDecrementDelay = false;
 	
 	void SpawnEnemy();
 	void SetSpawnerTimer();
+	void ModifySpawnerDelay();
 
 };

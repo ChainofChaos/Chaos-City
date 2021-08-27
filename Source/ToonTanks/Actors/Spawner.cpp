@@ -35,6 +35,7 @@ void ASpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	ModifySpawnerDelay();
 	SetSpawnerTimer();
 	if(bSpawned == true){return;}
 	SpawnEnemy();
@@ -54,6 +55,21 @@ void ASpawner::SetSpawnerTimer()
 	if(LastSpawnTime + SpawningDelay <= GetWorld()->GetTimeSeconds() && LastSpawnTime != 0)
 	{
 		bSpawned = false;
+		if(GameModeBase->GetScore() != SpawnerMultiplicityAtScore)
+		{
+			bDecrementDelay = false;
+		}
+	}
+}
+
+void ASpawner::ModifySpawnerDelay()
+{
+	if(!GameModeBase){return;}
+	if(GameModeBase->GetScore() == SpawnerMultiplicityAtScore && !bDecrementDelay)
+	{
+		SpawningDelay-=0.5;
+		SpawnerMultiplicityAtScore+=SpawnerMultiplicityAtScore;
+		bDecrementDelay = true;
 	}
 }
 
