@@ -4,6 +4,7 @@
 #include "DestroyableObject.h"
 #include "Components/StaticMeshComponent.h"
 #include "ToonTanks/Components/HealthComponent.h"
+#include "ToonTanks/Actors/HealthBulb.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -15,6 +16,9 @@ ADestroyableObject::ADestroyableObject()
 	
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
     RootComponent = BaseMesh;
+
+	SpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Spawn Point"));
+	SpawnPoint->SetupAttachment(RootComponent);
 
     HealthComp = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 }
@@ -40,6 +44,16 @@ void ADestroyableObject::OnDestruction()
 		UGameplayStatics::SpawnEmitterAtLocation(this, DeathEffect, GetActorLocation());
 		UGameplayStatics::SpawnSoundAtLocation(this, DeathSound, GetActorLocation());
 		UGameplayStatics::SpawnSoundAtLocation(this, HitSound, GetActorLocation());
+		Randomizer();
 		Destroy();
+	}
+}
+
+void ADestroyableObject::Randomizer()
+{
+	int32 Random = FMath::RandRange(0, 3);
+	if(Random == 1)
+	{
+		GetWorld()->SpawnActor<AHealthBulb>(BulbClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
 	}
 }

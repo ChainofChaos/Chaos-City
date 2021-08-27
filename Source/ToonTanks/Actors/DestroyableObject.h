@@ -8,6 +8,7 @@
 
 
 class UHealthComponent;
+class AHealthBulb;
 
 UCLASS()
 class TOONTANKS_API ADestroyableObject : public AActor
@@ -31,6 +32,9 @@ private:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = "true"))	
     UStaticMeshComponent* BaseMesh;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = "true"))	
+	USceneComponent* SpawnPoint;
+	
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = "true"))
     UHealthComponent* HealthComp;
 
@@ -43,5 +47,10 @@ private:
     UPROPERTY(EditAnywhere, Category = "Effect")
     USoundBase* HitSound;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AHealthBulb> BulbClass;
+
+	
     void OnDestruction();
+	void Randomizer();
 };

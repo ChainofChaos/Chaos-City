@@ -5,7 +5,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
 #include "ToonTanks/Components/HealthComponent.h"
+#include "ToonTanks/Actors/HealthBulb.h"
 #include "ToonTanks/GameModes/TankGameModeBase.h"
+
+APawnTurret::APawnTurret()
+{
+	PrimaryActorTick.bCanEverTick = true;
+	
+	SpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Spawn Point"));
+	SpawnPoint->SetupAttachment(RootComponent);
+}
 
 void APawnTurret::BeginPlay()
 {
@@ -19,6 +28,7 @@ void APawnTurret::BeginPlay()
 void APawnTurret::HandleDestruction()
 {
 	Super::HandleDestruction();
+	Randomizer();
 	Destroy();
 }
 
@@ -68,10 +78,11 @@ void APawnTurret::EnemyMoveToTarget()
 void APawnTurret::ModifyHealth()
 {
 	if(!GameMode){return;}
-	if(GameMode->GetScore() == HealthMultiplicityAtScore && !bHealthAdded)
+	if(GameMode->GetScore() == HealthMultiplicityAtScore /*&& !bHealthAdded*/)
 	{
 		HealthComponent->AddHealth(HealthAdded);
-		HealthMultiplicityAtScore+=HealthMultiplicityAtScore;
+		DropChance += 3;
+		HealthMultiplicityAtScore += HealthMultiplicityAtScore;
 		bHealthAdded = true;
 	}
 }
@@ -84,6 +95,15 @@ void APawnTurret::SetupHealthModifier()
 		bHealthAdded = false;
 	}
 	ModifyHealth();
+}
+
+void APawnTurret::Randomizer()
+{
+	int32 Random = FMath::RandRange(0, DropChance);
+	if(Random == 1)
+	{
+		GetWorld()->SpawnActor<AHealthBulb>(BulbClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
+	}
 }
 
 

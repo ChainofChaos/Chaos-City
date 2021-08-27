@@ -48,7 +48,26 @@ float UHealthComponent::GetHealth()
 
 void UHealthComponent::AddHealth(float Value)
 {
-	Health += Value;
+	DefaultHealth += Value;
 }
+
+float UHealthComponent::GetDefaultHealth()
+{
+	return DefaultHealth;
+}
+
+void UHealthComponent::Heal(float Value)
+{
+	if(Health < DefaultHealth)
+	{
+		Health += Value;
+		if(Health > DefaultHealth)
+		{
+			Health = DefaultHealth;
+		}
+	}
+}
+
+
 
 

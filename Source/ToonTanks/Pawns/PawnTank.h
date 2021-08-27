@@ -27,6 +27,7 @@ public:
 
 	bool GetIsPlayerAlive();
 	float GetRotationValue();
+	void AddHealth(float Value);
 	float GetPlayerHP();
 	
 protected:

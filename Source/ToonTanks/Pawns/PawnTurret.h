@@ -9,6 +9,7 @@
 
 class APawnTank;
 class ATankGameModeBase;
+class AHealthBulb;
 
 UCLASS()
 class TOONTANKS_API APawnTurret : public APawnBase
@@ -16,7 +17,7 @@ class TOONTANKS_API APawnTurret : public APawnBase
 	GENERATED_BODY()
 	
 public:
-
+	APawnTurret();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -28,6 +29,9 @@ protected:
 
 
 private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = "true"))	
+	USceneComponent* SpawnPoint;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float FireRate = 2.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
@@ -38,7 +42,11 @@ private:
 	int32 HealthMultiplicityAtScore = 50;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
 	int32 HealthAdded = 20;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AHealthBulb> BulbClass;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	int32 DropChance = 5;
+	
 	bool bHealthAdded = false;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
@@ -49,4 +57,5 @@ private:
 	float GetPlayerDistance();
 	void ModifyHealth();
 	void SetupHealthModifier();
+	void Randomizer();
 };

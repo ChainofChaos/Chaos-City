@@ -16,6 +16,8 @@ public:
 	// Sets default values for this component's properties
 	UHealthComponent();
 	float GetHealth();
+	float GetDefaultHealth();
+	void Heal(float Value);
 	void AddHealth(float Value);
 
 protected:

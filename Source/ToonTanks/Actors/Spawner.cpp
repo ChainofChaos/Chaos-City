@@ -65,7 +65,7 @@ void ASpawner::SetSpawnerTimer()
 void ASpawner::ModifySpawnerDelay()
 {
 	if(!GameModeBase){return;}
-	if(GameModeBase->GetScore() == SpawnerMultiplicityAtScore && !bDecrementDelay)
+	if(GameModeBase->GetScore() == SpawnerMultiplicityAtScore && !bDecrementDelay && SpawningDelay >= 2.5f)
 	{
 		SpawningDelay-=0.5;
 		SpawnerMultiplicityAtScore+=SpawnerMultiplicityAtScore;
