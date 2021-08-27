@@ -29,6 +29,8 @@ void ATankGameModeBase::Tick(float DeltaTime)
 	
 	if(!PlayerPawn){return;}
 	Health = PlayerPawn->GetPlayerHP();
+	if(bTimerDone){return;}
+	SetTimerForPlayerControll();
 }
 
 void ATankGameModeBase::ActorDied(AActor* DeadActor)
@@ -57,9 +59,7 @@ void ATankGameModeBase::HandleGameStart()
 	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 	GameStart();
 	PlayerControllerRef->SetPlayerEnabledState(false);
-	FTimerHandle PlayerEnabledHandle;
-	FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState, true);
-	GetWorld()->GetTimerManager().SetTimer(PlayerEnabledHandle, PlayerEnableDelegate, StartDelay, false);
+	PlayerControllerRef->bShowMouseCursor = true;
 }
 
 void ATankGameModeBase::HandleGameOver(bool bPlayerWon)
@@ -81,5 +81,17 @@ void ATankGameModeBase::SetPlayStart()
 {
 	bPlay = true;
 }
+
+void ATankGameModeBase::SetTimerForPlayerControll()
+{
+	if(bPlay)
+	{
+		FTimerHandle PlayerEnabledHandle;
+		FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState, true);
+		GetWorld()->GetTimerManager().SetTimer(PlayerEnabledHandle, PlayerEnableDelegate, StartDelay, false);
+		bTimerDone = true;
+	}
+}
+
 
 

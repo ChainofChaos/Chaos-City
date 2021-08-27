@@ -54,7 +54,9 @@ private:
 	APawnTank* PlayerPawn;
 	APlayerControllerBase* PlayerControllerRef;
 	int32 TargetTurret;
+	bool bTimerDone = false;
 
 	void HandleGameStart();
+	void SetTimerForPlayerControll();
 	void HandleGameOver(bool bPlayerWon);
 };
