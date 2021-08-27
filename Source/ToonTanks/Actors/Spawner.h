@@ -7,6 +7,7 @@
 #include "Spawner.generated.h"
 
 class APawnTurret;
+class ATankGameModeBase;
 
 UCLASS()
 class TOONTANKS_API ASpawner : public AActor
@@ -38,6 +39,8 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
 	float SpawningDelay = 5.f;
 
+	ATankGameModeBase* GameModeBase;
+	
 	float LastSpawnTime = 0.f;
 	bool bSpawned = false;
 	

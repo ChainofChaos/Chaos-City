@@ -24,7 +24,6 @@ void ATankGameModeBase::Tick(float DeltaTime)
 	
 	if(!PlayerPawn){return;}
 	Health = PlayerPawn->GetPlayerHP();
-	UE_LOG(LogTemp, Warning, TEXT("%f"),Health);
 }
 
 void ATankGameModeBase::ActorDied(AActor* DeadActor)
@@ -63,3 +62,9 @@ void ATankGameModeBase::HandleGameOver(bool bPlayerWon)
 {
 	GameOver(bPlayerWon);
 }
+
+bool ATankGameModeBase::GetIsPlaying()
+{
+	return bPlay;
+}
+

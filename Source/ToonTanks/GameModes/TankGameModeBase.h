@@ -19,18 +19,23 @@ public:
 	void ActorDied(AActor* DeadActor);
 	virtual void Tick(float DeltaTime) override;
 
+	bool GetIsPlaying();
+
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Game Loop")
 	int32 StartDelay = 4;
 
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Combat")
 	int32 IncrementScoreAmount = 10;
 
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Combat")
 	int32 Score = 0;
 
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Combat")
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category = "Combat")
 	int32 Health = 0;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Combat")
+	bool bPlay = false;
 	
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintImplementableEvent)

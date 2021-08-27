@@ -4,8 +4,8 @@
 #include "Spawner.h"
 #include "Components/StaticMeshComponent.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
+#include "ToonTanks/GameModes/TankGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ASpawner::ASpawner()
@@ -26,7 +26,8 @@ ASpawner::ASpawner()
 void ASpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	GameModeBase = Cast<ATankGameModeBase>(UGameplayStatics::GetGameMode(this));
 }
 
 // Called every frame
@@ -41,7 +42,8 @@ void ASpawner::Tick(float DeltaTime)
 
 void ASpawner::SpawnEnemy()
 {
-	if(!TurretClass){return;}
+	if(!TurretClass || !GameModeBase){return;}
+	if(!GameModeBase->GetIsPlaying()){return;}
 	GetWorld()->SpawnActor<APawnTurret>(TurretClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
 	LastSpawnTime = GetWorld()->GetTimeSeconds();
 	bSpawned = true;
