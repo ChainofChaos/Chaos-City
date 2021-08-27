@@ -15,6 +15,7 @@ class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 	
 public:
+	ATankGameModeBase();
 	void ActorDied(AActor* DeadActor);
 	virtual void Tick(float DeltaTime) override;
 

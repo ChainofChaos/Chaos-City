@@ -7,19 +7,21 @@
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
 
+ATankGameModeBase::ATankGameModeBase()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
 
 void ATankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	PrimaryActorTick.bCanEverTick = true;
 	HandleGameStart();
-	
 }
 
 void ATankGameModeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//tidak masuk sini, besok cek
+	
 	if(!PlayerPawn){return;}
 	Health = PlayerPawn->GetPlayerHP();
 	UE_LOG(LogTemp, Warning, TEXT("%f"),Health);
