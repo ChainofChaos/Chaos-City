@@ -25,8 +25,9 @@ public:
 	void SetReadySpawn();
 	int32 GetScore();
 	
-	UPROPERTY(EditAnywhere, Category = "Music")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Music")
     UAudioComponent* Music;
+
 
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Game Loop")
