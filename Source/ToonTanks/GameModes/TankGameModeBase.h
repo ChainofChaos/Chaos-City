@@ -20,7 +20,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	bool GetIsPlaying();
+	bool GetReadySpawn();
 	void SetPlayStart();
+	void SetReadySpawn();
 	int32 GetScore();
 	
 	UPROPERTY(EditAnywhere, Category = "Music")
@@ -55,6 +57,7 @@ private:
 	APlayerControllerBase* PlayerControllerRef;
 	int32 TargetTurret;
 	bool bTimerDone = false;
+	bool bReadySpawn = false;
 
 	void HandleGameStart();
 	void SetTimerForPlayerControll();

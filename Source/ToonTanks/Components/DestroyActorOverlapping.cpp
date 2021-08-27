@@ -2,6 +2,8 @@
 
 
 #include "DestroyActorOverlapping.h"
+#include "Engine/TriggerVolume.h"
+#include "ToonTanks/Pawns/PawnTurret.h"
 
 // Sets default values for this component's properties
 UDestroyActorOverlapping::UDestroyActorOverlapping()
@@ -10,7 +12,7 @@ UDestroyActorOverlapping::UDestroyActorOverlapping()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	TriggerVolume = CreateDefaultSubobject<ATriggerVolume>(TEXT("Trigger Volume"));
 }
 
 
@@ -19,8 +21,7 @@ void UDestroyActorOverlapping::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	FindTriggerVolume();
 }
 
 
@@ -29,6 +30,30 @@ void UDestroyActorOverlapping::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if(!TriggerVolume){return;}
+	DestroyActorInside();
 }
+
+void UDestroyActorOverlapping::FindTriggerVolume()
+{
+	if(!TriggerVolume)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s do not have trigger volume"), *GetOwner()->GetName());
+	}
+}
+
+void UDestroyActorOverlapping::DestroyActorInside()
+{
+	TArray<AActor*> Turret;
+	TriggerVolume->GetOverlappingActors(Turret);
+	if(!TriggerVolume){return;}
+	for(AActor* Actor : Turret)
+	{
+		if(Actor->IsA(APawnTurret::StaticClass()))
+		{
+			Actor->Destroy();
+		}
+	}
+}
+
 

@@ -31,11 +31,7 @@ void APawnTurret::Tick(float DeltaTime)
 		return;
 	}
 	SetupHealthModifier();
-	RotateMesh(PlayerPawn->GetActorLocation());
 	EnemyMoveToTarget();
-	if (GetPlayerDistance() > FireRange) {
-		return;
-	}
 	RotateTurret(PlayerPawn->GetActorLocation());
 }
 

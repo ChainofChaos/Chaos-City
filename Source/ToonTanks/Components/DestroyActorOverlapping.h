@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "DestroyActorOverlapping.generated.h"
 
+class ATriggerVolume;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOONTANKS_API UDestroyActorOverlapping : public UActorComponent
@@ -24,5 +25,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = true))
+	ATriggerVolume* TriggerVolume;
+
+	void FindTriggerVolume();
+	void DestroyActorInside();
+	
 };

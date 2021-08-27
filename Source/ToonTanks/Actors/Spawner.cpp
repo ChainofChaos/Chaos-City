@@ -44,7 +44,7 @@ void ASpawner::Tick(float DeltaTime)
 void ASpawner::SpawnEnemy()
 {
 	if(!TurretClass || !GameModeBase){return;}
-	if(!GameModeBase->GetIsPlaying()){return;}
+	if(!GameModeBase->GetReadySpawn()){return;}
 	GetWorld()->SpawnActor<APawnTurret>(TurretClass, SpawnPoint->GetComponentLocation(), SpawnPoint->GetComponentRotation());
 	LastSpawnTime = GetWorld()->GetTimeSeconds();
 	bSpawned = true;

@@ -93,5 +93,16 @@ void ATankGameModeBase::SetTimerForPlayerControll()
 	}
 }
 
+bool ATankGameModeBase::GetReadySpawn()
+{
+	return bReadySpawn;
+}
+
+void ATankGameModeBase::SetReadySpawn()
+{
+	bReadySpawn = true;
+}
+
+
 
 
