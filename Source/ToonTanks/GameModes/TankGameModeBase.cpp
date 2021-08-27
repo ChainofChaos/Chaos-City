@@ -2,14 +2,19 @@
 
 
 #include "TankGameModeBase.h"
+
+#include "NetworkMessage.h"
 #include "Kismet/GameplayStatics.h"
 #include "ToonTanks/Pawns/PawnTank.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
+#include "Components/AudioComponent.h"
 
 ATankGameModeBase::ATankGameModeBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	Music = CreateDefaultSubobject<UAudioComponent>(TEXT("Main Menu Music"));
 }
 
 void ATankGameModeBase::BeginPlay()
@@ -51,7 +56,6 @@ void ATankGameModeBase::HandleGameStart()
 	PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 	GameStart();
-	UILoad();
 	PlayerControllerRef->SetPlayerEnabledState(false);
 	FTimerHandle PlayerEnabledHandle;
 	FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState, true);
@@ -71,6 +75,11 @@ bool ATankGameModeBase::GetIsPlaying()
 int32 ATankGameModeBase::GetScore()
 {
 	return Score;
+}
+
+void ATankGameModeBase::SetPlayStart()
+{
+	bPlay = true;
 }
 
 

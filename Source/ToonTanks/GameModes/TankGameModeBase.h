@@ -20,7 +20,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	bool GetIsPlaying();
+	void SetPlayStart();
 	int32 GetScore();
+	
+	UPROPERTY(EditAnywhere, Category = "Music")
+    UAudioComponent* Music;
 
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Game Loop")
@@ -53,5 +57,4 @@ private:
 
 	void HandleGameStart();
 	void HandleGameOver(bool bPlayerWon);
-
 };

@@ -16,6 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UHealthComponent();
 	float GetHealth();
+	void AddHealth(float Value);
 
 protected:
 	// Called when the game starts

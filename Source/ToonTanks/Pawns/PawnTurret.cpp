@@ -4,6 +4,8 @@
 #include "PawnTurret.h"
 #include "Kismet/GameplayStatics.h"
 #include "PawnTank.h"
+#include "ToonTanks/Components/HealthComponent.h"
+#include "ToonTanks/GameModes/TankGameModeBase.h"
 
 void APawnTurret::BeginPlay()
 {
@@ -11,6 +13,7 @@ void APawnTurret::BeginPlay()
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &APawnTurret::CheckFireCondition, FireRate, true);
 	PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	EnemyMoveToTarget();
+	GameMode = Cast<ATankGameModeBase>(UGameplayStatics::GetGameMode(this));
 }
 
 void APawnTurret::HandleDestruction()
@@ -27,6 +30,7 @@ void APawnTurret::Tick(float DeltaTime)
 	{
 		return;
 	}
+	SetupHealthModifier();
 	RotateMesh(PlayerPawn->GetActorLocation());
 	EnemyMoveToTarget();
 	if (GetPlayerDistance() > FireRange) {
@@ -64,4 +68,26 @@ void APawnTurret::EnemyMoveToTarget()
 	AddActorLocalOffset(EnemyMovementDirection, true);
 	AddActorLocalRotation(FQuat(EnemyRotationDirection) , true);
 }
+
+void APawnTurret::ModifyHealth()
+{
+	if(!GameMode){return;}
+	if(GameMode->GetScore() == HealthMultiplicityAtScore && !bHealthAdded)
+	{
+		HealthComponent->AddHealth(HealthAdded);
+		HealthMultiplicityAtScore+=HealthMultiplicityAtScore;
+		bHealthAdded = true;
+	}
+}
+
+void APawnTurret::SetupHealthModifier()
+{
+	if(!GameMode){return;}
+	if(GameMode->GetScore() != HealthMultiplicityAtScore)
+	{
+		bHealthAdded = false;
+	}
+	ModifyHealth();
+}
+
 

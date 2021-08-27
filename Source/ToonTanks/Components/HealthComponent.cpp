@@ -46,4 +46,9 @@ float UHealthComponent::GetHealth()
 	return Health; 
 }
 
+void UHealthComponent::AddHealth(float Value)
+{
+	Health += Value;
+}
+
 

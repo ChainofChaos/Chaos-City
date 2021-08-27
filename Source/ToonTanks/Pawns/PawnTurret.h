@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "PawnBase.h"
+#include "ToonTanks/GameModes/TankGameModeBase.h"
 #include "PawnTurret.generated.h"
 
 class APawnTank;
-//class AAIController;
+class ATankGameModeBase;
 
 UCLASS()
 class TOONTANKS_API APawnTurret : public APawnBase
@@ -33,9 +34,19 @@ private:
 	float FireRange = 500.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float MovementSpeed = 100.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	int32 HealthMultiplicityAtScore = 50;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = "true"))
+	int32 HealthAdded = 20;
+
+	bool bHealthAdded = false;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
+
+	ATankGameModeBase* GameMode;
 	
 	void CheckFireCondition();
 	float GetPlayerDistance();
+	void ModifyHealth();
+	void SetupHealthModifier();
 };
